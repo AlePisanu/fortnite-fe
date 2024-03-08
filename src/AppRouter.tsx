@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import "./App.scss";
-import { ChakraProvider } from "@chakra-ui/react";
-import { useTranslation } from "react-i18next";
+import {
+  Route,
+  MemoryRouter as Router,
+  Routes,
+} from "react-router-dom";
 import i18n from "./communication/i18n";
-import AppRouter from "./AppRouter";
+import { routes } from "./communication/routes";
 
-function App() {
-  const { t } = useTranslation();
+function AppRouter() {
   useEffect(() => {
     sessionStorage.setItem("lang", "it");
     const currLang = sessionStorage.getItem("lang")?.toString();
@@ -15,11 +17,12 @@ function App() {
     }
   }, []);
   return (
-    <ChakraProvider>
-      <AppRouter/>
-      <h1>{t("menuItemDashboard")}</h1>
-    </ChakraProvider>
+    <Router>
+      <Routes>
+        <Route path={routes.DASHBOARD} element={} />
+      </Routes>
+    </Router>
   );
 }
 
-export default App;
+export default AppRouter;
